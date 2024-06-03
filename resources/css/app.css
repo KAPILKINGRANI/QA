@@ -1,3 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*@tailwind base;*/
+/*@tailwind components;*/
+/*@tailwind utilities;*/
+
+.statistics strong {
+    font-size: 1.2rem;
+}
+
+.statistics .answers {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.statistics .answers.answered {
+    border: solid 1px green;
+    color: green;
+}
+.statistics .answers.has-best-answer {
+    background: green;
+    color: white;
+}
+.statistics .answers.unanswered {
+    background: red;
+    color: white;
+}
