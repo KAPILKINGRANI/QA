@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('views_count')->default(0);
             $table->unsignedBigInteger('answers_count')->default(0);
             $table->integer('votes_count')->default(0);
-            $table->unsignedBigInteger('best_answer_id')->default(0);
+            $table->unsignedBigInteger('best_answer_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
@@ -27,8 +27,8 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-                //ye error nahi dega ye delete karne dega this should not be in production
-                //in production environment if suppose user is deleted then it should give error
+            //ye error nahi dega ye delete karne dega this should not be in production
+            //in production environment if suppose user is deleted then it should give error
         });
     }
 
