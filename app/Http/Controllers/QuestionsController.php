@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Questions\CreateQuestionRequest;
+use App\Http\Requests\Questions\UpdateQuestionRequest;
 use App\Models\Question;
 
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class QuestionsController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth', only: ['create', 'store']),
+            new Middleware('auth', only: ['create', 'store', 'edit', 'update']),
         ];
     }
     public function index()
@@ -34,6 +35,26 @@ class QuestionsController extends Controller implements HasMiddleware
         ]);
 
         session()->flash('success', 'Question has been added successfully !');
+        return redirect(route('questions.index'));
+    }
+    public function edit(Question $question)
+    {
+        return view('qa.questions.edit', compact(['question']));
+    }
+    public function update(UpdateQuestionRequest $request, Question $question)
+    {
+        $question->update([
+            'title' => $request->title,
+            'body' => $request->body
+        ]);
+
+        session()->flash('success', 'Question has been Updated successfully !');
+        return redirect(route('questions.index'));
+    }
+    public function destroy(Question $question)
+    {
+        $question->delete();
+        session()->flash('success', 'Question has been Deleted successfully !');
         return redirect(route('questions.index'));
     }
 }

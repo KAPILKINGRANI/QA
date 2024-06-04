@@ -33,9 +33,14 @@
                             <div class="col-md-10">
                                 <div class="card-body">
                                     <div class="card-title">
-                                        <h3>
-                                            <a href="{{ $question->url }}">{{ $question->title }}</a>
-                                        </h3>
+                                        <div class="d-flex justify-content-between">
+                                            <h3>
+                                                <a href="{{ $question->url }}">{{ $question->title }}</a>
+                                            </h3>
+                                            <a href="{{ route('questions.edit', $question->id) }}"
+                                                class="btn btn-sm btn-outline-warning">Edit
+                                            </a>
+                                        </div>
                                         <p>
                                             Asked By : <a href="#">{{ $question->owner->name }}</a>
                                             <span class="text text-muted">{{ $question->created_date }}</span>
