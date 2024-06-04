@@ -16,6 +16,9 @@ class QuestionsController extends Controller implements HasMiddleware
     {
         return [
             new Middleware('auth', only: ['create', 'store', 'edit', 'update']),
+            new Middleware('trackQuestionsView', only: ['show']),
+
+
         ];
     }
     public function index()
@@ -56,5 +59,9 @@ class QuestionsController extends Controller implements HasMiddleware
         $question->delete();
         session()->flash('success', 'Question has been Deleted successfully !');
         return redirect(route('questions.index'));
+    }
+    public function show(Question $question)
+    {
+        return view('qa.questions.show', compact(['question']));
     }
 }

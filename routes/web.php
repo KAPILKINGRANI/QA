@@ -21,4 +21,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 // PROJECT ROUTES
-Route::resource('questions', QuestionsController::class);
+Route::resource('questions', QuestionsController::class)->except(['show']);
+Route::get('/questions/{slug}', [QuestionsController::class, 'show'])->name('questions.show');
