@@ -5,7 +5,9 @@
 .statistics strong {
     font-size: 1.2rem;
 }
-
+.card {
+    overflow: hidden;
+}
 .statistics .answers {
     padding: 10px;
     border-radius: 5px;

@@ -11,8 +11,8 @@
                             <a href="{{ route('questions.create') }}" class="btn btn-outline-primary">Ask a Question !</a>
                         @endauth
                     </div>
-                    <div class="row">
-                        @foreach ($questions as $question)
+                    @foreach ($questions as $question)
+                        <div class="row">
                             <div class="col-md-2">
                                 <div class="d-flex flex-column mr-4 statistics">
                                     <div class="votes text-center mb-3">
@@ -64,11 +64,11 @@
                                         <p>{!! Str::limit($question->body, 250) !!}</p>
                                     </div>
                                 </div>
-
                             </div>
-                            <hr />
-                        @endforeach
-                    </div>
+                        </div>
+                        <hr />
+                    @endforeach
+
                     <div class="card-footer">
                         {{ $questions->links() }}
                     </div>
