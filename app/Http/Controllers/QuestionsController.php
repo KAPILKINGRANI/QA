@@ -9,6 +9,7 @@ use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller implements HasMiddleware
 {
@@ -42,10 +43,19 @@ class QuestionsController extends Controller implements HasMiddleware
     }
     public function edit(Question $question)
     {
+        //One Method
+
+        // if (!Gate::allows('update', $question)) {
+        //     abort(403);
+        // }
+
+        //2nd Method
+        Gate::authorize('update', $question);
         return view('qa.questions.edit', compact(['question']));
     }
     public function update(UpdateQuestionRequest $request, Question $question)
     {
+        Gate::authorize('update', $question);
         $question->update([
             'title' => $request->title,
             'body' => $request->body
@@ -56,6 +66,7 @@ class QuestionsController extends Controller implements HasMiddleware
     }
     public function destroy(Question $question)
     {
+        Gate::authorize('delete', $question);
         $question->delete();
         session()->flash('success', 'Question has been Deleted successfully !');
         return redirect(route('questions.index'));
