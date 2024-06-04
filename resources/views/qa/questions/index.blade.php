@@ -37,9 +37,18 @@
                                             <h3>
                                                 <a href="{{ $question->url }}">{{ $question->title }}</a>
                                             </h3>
-                                            <a href="{{ route('questions.edit', $question->id) }}"
-                                                class="btn btn-sm btn-outline-warning">Edit
-                                            </a>
+                                            <div>
+                                                <a href="{{ route('questions.edit', $question->id) }}"
+                                                    class="btn btn-sm btn-outline-warning">Edit
+                                                </a>
+                                                <form action="{{ route('questions.destroy', $question->id) }}"
+                                                    class="d-inline-block" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-outline-danger">DEL</button>
+                                                </form>
+                                            </div>
                                         </div>
                                         <p>
                                             Asked By : <a href="#">{{ $question->owner->name }}</a>
