@@ -5,8 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between">
                         <h2>All Questions</h2>
+                        <a href="{{ route('questions.create') }}" class="btn btn-outline-primary">Ask a Question !</a>
                     </div>
                     <div class="row">
                         @foreach ($questions as $question)
@@ -39,11 +40,12 @@
                                             Asked By : <a href="#">{{ $question->owner->name }}</a>
                                             <span class="text text-muted">{{ $question->created_date }}</span>
                                         </p>
-                                        <p>{{ Str::limit($question->body, 250) }}</p>
+                                        <p>{!! Str::limit($question->body, 250) !!}</p>
                                     </div>
                                 </div>
-                                <hr />
+
                             </div>
+                            <hr />
                         @endforeach
                     </div>
                     <div class="card-footer">
