@@ -9,6 +9,18 @@
                     {!! $answer->body !!}
                     <div class="d-flex justify-content-between mr-3">
                         <div>
+                            @can('update', $answer)
+                                <a href="{{ route('questions.answers.edit', [$question, $answer]) }}"
+                                    class="btn btn-outline-warning btn-sm">Edit</a>
+                            @endcan
+                            @can('delete', $answer)
+                                <form action="{{ route('questions.answers.destroy', [$question, $answer]) }}" method="POST"
+                                    class="d-inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="sumbit" class="btn btn-outline-danger btn-sm">Del</button>
+                                </form>
+                            @endcan
                             <div class="d-flex">
                                 <div>
                                     <a href="#" title="Up Vote" class="vote-up d-block text-center text-dark">
@@ -16,8 +28,7 @@
                                     </a>
                                     <h4 class="votes-count textmuted text-center m-0">{{ $answer->votes_count }}
                                     </h4>
-                                    <a href="#" title="Down Vote"
-                                        class="vote-up d-block text-center text-dark">
+                                    <a href="#" title="Down Vote" class="vote-up d-block text-center text-dark">
                                         <i class="fa fa-caret-down fa-3x"></i>
                                     </a>
                                 </div>

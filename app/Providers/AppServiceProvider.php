@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\User;
+use App\Policies\AnswerPolicy;
 use App\Policies\QuestionPolicy;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
@@ -34,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
             return $user->id === $question->user_id;
         });
         Gate::policy(Question::class, QuestionPolicy::class);
+        Gate::policy(Answer::class, AnswerPolicy::class);
     }
 }

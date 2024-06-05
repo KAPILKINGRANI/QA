@@ -9,7 +9,6 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="form-group mb-4">
-                        <label for="body" class="form-label">Enter Your Question</label>
                         <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                         <trix-editor input="body"
                             class="form-control

@@ -3,27 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Answers\CreateAnswerRequest;
+use App\Http\Requests\Answers\UpdateAnswerRequest;
 use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AnswersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,35 +26,35 @@ class AnswersController extends Controller
         return redirect($question->url);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Answer $answer)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Answer $answer)
+    public function edit(Question $question, Answer $answer)
     {
-        //
+        // Gate::authorize('update', $answer);
+        return view('qa.answers._edit', compact(['question', 'answer']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Answer $answer)
+    public function update(UpdateAnswerRequest $request, Question  $question, Answer $answer)
     {
-        //
+        // Gate::authorize('update', $answer);
+        $answer->update(['body' => $request->body]);
+        session()->flash('success', 'Your Answer has been updated successfully');
+        return redirect($question->url);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Answer $answer)
+    public function destroy(Question $question, Answer $answer)
     {
-        //
+        // Gate::authorize('delete', $answer);
+        $answer->delete();
+        session()->flash('success', 'Your Answer has been deleted successfully');
+        return redirect($question->url);
     }
 }

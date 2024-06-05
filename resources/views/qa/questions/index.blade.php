@@ -39,11 +39,13 @@
                                             <h3>
                                                 <a href="{{ $question->url }}">{{ $question->title }}</a>
                                             </h3>
-                                            <div>
+                                            <div class="d-flex justify-content-end gap-1">
                                                 @can('edit-question', $question)
-                                                    <a href="{{ route('questions.edit', $question->id) }}"
-                                                        class="btn btn-sm btn-outline-warning">Edit
-                                                    </a>
+                                                    <div>
+                                                        <a href="{{ route('questions.edit', $question->id) }}"
+                                                            class="btn btn-sm btn-outline-warning">Edit
+                                                        </a>
+                                                    </div>
                                                 @endcan
                                                 @can('delete', $question)
                                                     <form action="{{ route('questions.destroy', $question->id) }}"
@@ -54,7 +56,6 @@
                                                             class="btn btn-sm btn-outline-danger">DEL</button>
                                                     </form>
                                                 @endcan
-
                                             </div>
                                         </div>
                                         <p>
