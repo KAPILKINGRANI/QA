@@ -7,6 +7,11 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h2>All Questions</h2>
+                        {{-- If user is not logged in we are checking via @guest blade template --}}
+                        @guest
+                            <a href="{{ route('questions.create') }}" class="btn btn-outline-primary">Login To Ask a Question</a>
+                        @endguest
+                        {{-- If user is logged in we are checking via @auth blade template --}}
                         @auth
                             <a href="{{ route('questions.create') }}" class="btn btn-outline-primary">Ask a Question !</a>
                         @endauth
