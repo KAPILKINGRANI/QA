@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,4 @@ require __DIR__ . '/auth.php';
 // PROJECT ROUTES
 Route::resource('questions', QuestionsController::class)->except(['show']);
 Route::get('/questions/{slug}', [QuestionsController::class, 'show'])->name('questions.show');
+Route::resource('questions.answers', AnswersController::class)->except(['show', 'create', 'index']);

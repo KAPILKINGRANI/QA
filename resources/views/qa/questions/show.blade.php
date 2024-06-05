@@ -1,7 +1,9 @@
 @extends('qa.layouts.app')
-@section('page-level-scripts')
+@section('page-level-styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
 @endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -53,7 +55,12 @@
                 </div>
             </div>
         </div>
-
+        @auth
+            @include('qa.answers._create')
+        @endauth
         @include('qa.answers._index')
     </div>
+@endsection
+@section('page-level-scripts')
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 @endsection
