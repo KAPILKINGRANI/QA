@@ -28,4 +28,8 @@ class Answer extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 }

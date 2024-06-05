@@ -19,17 +19,15 @@ class DatabaseSeeder extends Seeder
         //and for each question make many answers at once
         User::factory(10)->create()
             ->each(function ($user) {
-                for ($i = 1; $i <= rand(5, 10); $i++) {
-                    $user->questions()
-                        ->saveMany(Question::factory(rand(3, 10))->make())
-                        ->each(function ($question) {
-                            $question->answers()
-                                ->saveMany(
-                                    Answer::factory(rand(3, 7))
-                                        ->make()
-                                );
-                        });
-                }
+                $user->questions()
+                    ->saveMany(Question::factory(rand(3, 10))->make())
+                    ->each(function ($question) {
+                        $question->answers()
+                            ->saveMany(
+                                Answer::factory(rand(3, 7))
+                                    ->make()
+                            );
+                    });
             });
     }
 }

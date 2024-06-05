@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
         Route::bind('slug', function (string $slug) {
-            return Question::where('slug', $slug)->firstOrFail();
+            return Question::with('answers.author')->where('slug', $slug)->firstOrFail();
         });
 
         Gate::define('edit-question', function (User $user, Question $question) {

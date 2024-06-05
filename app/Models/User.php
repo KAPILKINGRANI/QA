@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+    public function getAvatarAttribute()
+    {
+        $size = 40;
+        return "https://ui-avatars.com/api/?name={$this->name}&rounded=true&size={$size}";
+    }
 }
