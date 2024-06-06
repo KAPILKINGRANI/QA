@@ -59,4 +59,10 @@ class AnswersController extends Controller
         session()->flash('success', 'Your Answer has been deleted successfully');
         return redirect($question->url);
     }
-    
+    public function markAsBest(Question $question, Answer $answer)
+    {
+        Gate::authorize('markAsBest', $answer);
+        $answer->question->markAsBest($answer);
+        return redirect()->back();
+    }
+}

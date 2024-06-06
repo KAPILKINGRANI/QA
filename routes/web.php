@@ -25,3 +25,4 @@ require __DIR__ . '/auth.php';
 Route::resource('questions', QuestionsController::class)->except(['show']);
 Route::get('/questions/{slug}', [QuestionsController::class, 'show'])->name('questions.show');
 Route::resource('questions.answers', AnswersController::class)->except(['show', 'create', 'index']);
+Route::put('/questions/{question}/answers/{answer}/markAsBest', [AnswersController::class, 'markAsBest'])->name('questions.answers.markAsBest');

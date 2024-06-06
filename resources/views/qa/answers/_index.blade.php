@@ -33,10 +33,20 @@
                                     </a>
                                 </div>
                                 <div class="ml-4 mt-2">
-                                    <a href="#" title="Mark as Fav">
-                                        <i class="fa fa-star fa-2x text-dark"></i>
-                                    </a>
-                                    <h4>123</h4>
+                                    @can('markAsBest', $answer)
+                                        <form action="{{ route('questions.answers.markAsBest', [$question, $answer]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn">
+                                                <i class="fa fa-check fa-2x {{ $answer->best_answer_style }}"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        @if ($answer->is_best)
+                                            <i class="fa fa-check fa-2x {{ $answer->best_answer_style }}"></i>
+                                        @endif
+                                    @endcan
                                 </div>
                             </div>
                         </div>
