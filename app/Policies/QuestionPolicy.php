@@ -69,4 +69,8 @@ class QuestionPolicy
         //
         return true;
     }
+    public function markAsFavorite(User $user, Question $question): bool
+    {
+        return $user->id !== $question->user_id;
+    }
 }

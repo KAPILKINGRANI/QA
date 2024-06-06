@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswersController;
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,8 @@ Route::resource('questions', QuestionsController::class)->except(['show']);
 Route::get('/questions/{slug}', [QuestionsController::class, 'show'])->name('questions.show');
 Route::resource('questions.answers', AnswersController::class)->except(['show', 'create', 'index']);
 Route::put('/questions/{question}/answers/{answer}/markAsBest', [AnswersController::class, 'markAsBest'])->name('questions.answers.markAsBest');
+
+Route::post('/questions/{question}/mark-as-fav', [FavoritesController::class, 'store'])->name('questions.favorite');
+Route::delete('/questions/{question}/mark-as-unfav', [FavoritesController::class, 'destroy'])->name('questions.unfavorite');
+
+

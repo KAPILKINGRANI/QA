@@ -28,11 +28,21 @@
                                             <i class="fa fa-caret-down fa-3x"></i>
                                         </a>
                                     </div>
-                                    <div class="ml-4 mt-2">
-                                        <a href="#" title="Mark as Fav">
-                                            <i class="fa fa-star fa-2x text-dark"></i>
-                                        </a>
-                                        <h4>123</h4>
+                                    <div
+                                        class="ml-4 mt-2 text-center {{ $question->is_favorite ? 'text-warning' : 'text-black' }}">
+                                        <form
+                                            action="{{ route($question->is_favorite ? 'questions.unfavorite' : 'questions.favorite', $question) }}"
+                                            method="POST">
+                                            @csrf
+                                            @if ($question->is_favorite)
+                                                @method('DELETE')
+                                            @endif
+                                            <button type="submit"
+                                                title="{{ $question->is_favorite ? 'Mark As UnFav' : 'Mark As Fav' }}">
+                                                <i class="fa fa-star fa-2x"></i>
+                                            </button>
+                                            <h4>{{ $question->favorites_count }}</h4>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
