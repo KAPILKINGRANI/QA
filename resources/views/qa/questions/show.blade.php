@@ -20,13 +20,26 @@
                             <div>
                                 <div class="d-flex">
                                     <div>
-                                        <a href="#" title="Up Vote" class="vote-up d-block text-center text-dark">
-                                            <i class="fa fa-caret-up fa-3x"></i>
-                                        </a>
-                                        <h4 class="votes-count textmuted text-center m-0">{{ $question->votes_count }} </h4>
-                                        <a href="#" title="Down Vote" class="vote-up d-block text-center text-dark">
-                                            <i class="fa fa-caret-down fa-3x"></i>
-                                        </a>
+                                        @auth
+                                            <form action="{{ route('questions.vote', [$question, 1]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" title="Up Vote"
+                                                    class="vote-up d-block text-center {{ auth()->user()->hasUpVoteForQuestion($question) ? 'text-success' : 'text-dark' }}">
+                                                    <i class="fa fa-caret-up fa-3x"></i>
+                                                </button>
+                                            </form>
+                                            <h4 class="votes-count  text-center m-0">
+                                                {{ $question->votes_count }}
+                                            </h4>
+
+                                            <form action="{{ route('questions.vote', [$question, -1]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" title="Down Vote"
+                                                    class="vote-down d-block text-center {{ auth()->user()->hasDownVoteForQuestion($question) ? 'text-danger' : 'text-dark' }}">
+                                                    <i class="fa fa-caret-down fa-3x"></i>
+                                                </button>
+                                            </form>
+                                        @endauth
                                     </div>
                                     <div
                                         class="ml-4 mt-2 text-center {{ $question->is_favorite ? 'text-warning' : 'text-black' }}">

@@ -4,6 +4,7 @@ use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\VotesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,4 +32,4 @@ Route::put('/questions/{question}/answers/{answer}/markAsBest', [AnswersControll
 Route::post('/questions/{question}/mark-as-fav', [FavoritesController::class, 'store'])->name('questions.favorite');
 Route::delete('/questions/{question}/mark-as-unfav', [FavoritesController::class, 'destroy'])->name('questions.unfavorite');
 
-
+Route::post('/questions/{question}/vote/{vote}', [VotesController::class, 'voteQuestion'])->name('questions.vote');
