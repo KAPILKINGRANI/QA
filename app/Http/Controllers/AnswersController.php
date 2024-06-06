@@ -32,7 +32,7 @@ class AnswersController extends Controller
      */
     public function edit(Question $question, Answer $answer)
     {
-        // Gate::authorize('update', $answer);
+        Gate::authorize('update', $answer);
         return view('qa.answers._edit', compact(['question', 'answer']));
     }
 
@@ -41,7 +41,8 @@ class AnswersController extends Controller
      */
     public function update(UpdateAnswerRequest $request, Question  $question, Answer $answer)
     {
-        // Gate::authorize('update', $answer);
+
+        Gate::authorize('update', $answer);
         $answer->update(['body' => $request->body]);
         session()->flash('success', 'Your Answer has been updated successfully');
         return redirect($question->url);
@@ -52,9 +53,10 @@ class AnswersController extends Controller
      */
     public function destroy(Question $question, Answer $answer)
     {
-        // Gate::authorize('delete', $answer);
+
+        Gate::authorize('delete', $answer);
         $answer->delete();
         session()->flash('success', 'Your Answer has been deleted successfully');
         return redirect($question->url);
     }
-}
+    
