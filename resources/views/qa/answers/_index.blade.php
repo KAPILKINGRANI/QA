@@ -23,14 +23,29 @@
                             @endcan
                             <div class="d-flex">
                                 <div>
-                                    <a href="#" title="Up Vote" class="vote-up d-block text-center text-dark">
-                                        <i class="fa fa-caret-up fa-3x"></i>
-                                    </a>
-                                    <h4 class="votes-count textmuted text-center m-0">{{ $answer->votes_count }}
-                                    </h4>
-                                    <a href="#" title="Down Vote" class="vote-up d-block text-center text-dark">
-                                        <i class="fa fa-caret-down fa-3x"></i>
-                                    </a>
+                                    @auth
+                                        {{-- for type of vote we have define a constant i.e 1 indicates upvote --}}
+                                        {{-- similarly for down vote we have define a constant i.e -1  --}}
+                                        <form action="{{ route('answers.vote', [$answer, 1]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" title="Up Vote"
+                                                class="vote-up d-block text-center
+                                                {{ auth()->user()->hasUpVoteForAnswer($answer) ? 'text-success' : 'text-dark' }}">
+                                                <i class="fa fa-caret-up fa-3x"></i>
+                                            </button>
+                                        </form>
+                                        <h4 class="votes-count text-center m-0">
+                                            {{ $answer->votes_count }}
+                                        </h4>
+
+                                        <form action="{{ route('answers.vote', [$answer, -1]) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" title="Down Vote"
+                                                class="vote-down d-block text-center {{ auth()->user()->hasDownVoteForAnswer($answer) ? 'text-danger' : 'text-dark' }}">
+                                                <i class="fa fa-caret-down fa-3x"></i>
+                                            </button>
+                                        </form>
+                                    @endauth
                                 </div>
                                 <div class="ml-4 mt-2">
                                     @can('markAsBest', $answer)

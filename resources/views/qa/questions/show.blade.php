@@ -21,6 +21,8 @@
                                 <div class="d-flex">
                                     <div>
                                         @auth
+                                            {{-- for type of vote we have define a constant i.e 1 indicates upvote --}}
+                                            {{-- similarly for down vote we have define a constant i.e -1  --}}
                                             <form action="{{ route('questions.vote', [$question, 1]) }}" method="POST">
                                                 @csrf
                                                 <button type="submit" title="Up Vote"

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Validation\Rules\Exists;
 
 class User extends Authenticatable
 {
@@ -64,7 +65,7 @@ class User extends Authenticatable
     {
         return $this->morphedByMany(Question::class, 'vote')->withTimestamps();
     }
-    
+
     public function votesAnswers()
     {
         return $this->morphedByMany(Answer::class, 'vote')->withTimestamps();
@@ -87,7 +88,20 @@ class User extends Authenticatable
     }
     public function hasVoteForQuestion(Question $question)
     {
-        //upvote ka type 1 humne rakha hai its better to make interface for constants
         return  $this->hasUpVoteForQuestion($question) ||  $this->hasDownVoteForQuestion($question);
+    }
+
+    public function hasUpVoteForAnswer(Answer $answer)
+    {
+        return $this->votesAnswers()->where(['vote' => 1, 'vote_id' => $answer->id])->exists();
+    }
+    public function hasDownVoteForAnswer(Answer $answer)
+    {
+
+        return $this->votesAnswers()->where(['vote' => -1, 'vote_id' => $answer->id])->exists();
+    }
+    public function hasVoteForAnswer(Answer $answer)
+    {
+        return $this->hasUpVoteForAnswer($answer) || $this->hasDownVoteForAnswer($answer);
     }
 }

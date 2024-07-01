@@ -50,4 +50,26 @@ class Answer extends Model
     {
         return $this->question->best_answer_id === $this->id;
     }
+    public function vote(int $vote)
+    {
+        $this->votes()->attach(auth()->id(), ['vote' => $vote]);
+        if ($vote < 0) {
+            $this->decrement('votes_count');
+        } else {
+            $this->increment('votes_count');
+        }
+    }
+    public function updateVote(int $vote)
+    {
+        //polymorphic relationship
+        //updateExistingPivot Method is for polymorphic relationship
+        $this->votes()->updateExistingPivot(auth()->id(), ['vote' => $vote]);
+        if ($vote < 0) {
+            $this->decrement('votes_count');
+            $this->decrement('votes_count');
+        } else {
+            $this->increment('votes_count');
+            $this->increment('votes_count');
+        }
+    }
 }
